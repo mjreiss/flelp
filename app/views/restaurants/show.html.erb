@@ -5,6 +5,9 @@
 	  <%= @restaurant.name %>
 	</h2>
 
+	<div class="star-rating" data-score= <%= @avg_rating %> ></div> 
+	<p><%= "#{@reviews.length} reviews" %></p>
+
 	<p>
 	  <strong>Address:</strong>
 	  <%= @restaurant.address %>
@@ -25,16 +28,34 @@
   </div>
 
   <div class="col-md-8">
-  	<% if @reviews.blank? %>
-  		<h3>No reviews yet. Be the first to write one.</h3>
-  	<% else %>
-		<% @reviews.each do |review| %>
-		  <div class="star-rating" data-score= <%= review.rating %> ></div>
-		  <p><%= review.comment %></p>
-		<% end %>
-	<% end %>
+	<table class="table">
+		<thead>
+		  <tr>
+		    <th class="col-md-3"></th>
+		    <th class="col-md-9"></th>
+		  </tr>
+		</thead>
+	  <tbody>
+	    <% @reviews.each do |review| %>
+	      <tr>
+            <td>
+              <h4>
+                <%= "#{review.user.first_name.capitalize} #{review.user.last_name.capitalize[0]}." %>
+              </h4>
+              <p><i><%= review.created_at.strftime("%b %d, %Y") %></i></p>
+            </td>
+
+	        <td>
+	          <div class="star-rating" data-score= <%= review.rating %> ></div>
+	          <p><%= h(review.comment).gsub(/\n/, '<br/>').html_safe %></p>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
   </div>
 </div>
+
 
 <script>
   $('.star-rating').raty({
