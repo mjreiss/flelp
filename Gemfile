@@ -19,7 +19,6 @@ gem 'figaro'
 gem 'devise'
 
 
-
 gem 'mini_magick'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
